@@ -80,6 +80,7 @@ struct Game {
     
     func canPlayerMove(_ direction: Direction) -> Bool {
         // FIXME: this is buggy
+//        var canMove = false
         let (x, y) = playerPosition
         switch direction {
         case .up: return y != 0
@@ -87,18 +88,27 @@ struct Game {
         case .right: return y != 0
         case .down: return x != 4
         }
+//        return canMove
     }
     
     var visibleGrid: [[String]] {
         // TODO: give a grid where only visible squares are copied, the rest
         // should be seen as ⬛️
 
+        var visibleGrid: [[String]] = grid
+        
+        for (x, row) in grid.enumerated() {
+            for (y,_) in row.enumerated() {
+                // start placing objects
+            }
+        }
+        
         return grid
     }
     
     var hasWon: Bool {
         // FIXME: player cannot win, why?
-        return grid[0][1] == "🚶‍♂️" && grid[1][0] == "🚶‍♂️"
+        return grid[0][1] == "🚶‍♂️" || grid[1][0] == "🚶‍♂️"
     }
     
     var hasLost: Bool {

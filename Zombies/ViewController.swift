@@ -117,7 +117,7 @@ class ViewController: UIViewController {
         // FIXME: this formula to translate (x, y) coordinates to tag id is buggy,
         // can you fix it? And what does that strange code with filter do?
         // Can you find it in the documentation? Or maybe you can guess what it does?
-        let coordinatesAsTag = x + y
+        let coordinatesAsTag = x*5 + y
         let squareLabel = gridSquare.filter { $0.tag == coordinatesAsTag }.first
         squareLabel?.text = content
     }
