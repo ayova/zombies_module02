@@ -89,12 +89,8 @@ class ViewController: UIViewController {
         updateUI()
         hideFinalMessage()
         // TODO: update number of wins and losses in the UI
-        if game.hasWon {
-            totalWinsLabel.text = "W: \(totalWins)"
-        }
-        if game.hasLost {
-            totalLossesLabel.text = "L: \(totalLosses)"
-        }
+        totalWinsLabel.text = "W: \(totalWins)"
+        totalLossesLabel.text = "L: \(totalLosses)"
     }
     
     func newRound() {
@@ -137,6 +133,12 @@ class ViewController: UIViewController {
         // FIXME: this formula to translate (x, y) coordinates to tag id is buggy,
         // can you fix it? And what does that strange code with filter do?
         // Can you find it in the documentation? Or maybe you can guess what it does?
+        
+        /**
+        $0 is the first parameter passed in
+        filter returns each of the squares; allowing access to
+        its text property, which is then set to context
+        */
         let coordinatesAsTag = 5*x + y
         let squareLabel = gridSquare.filter { $0.tag == coordinatesAsTag }.first
         squareLabel?.text = content

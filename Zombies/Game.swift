@@ -131,43 +131,21 @@ struct Game {
         
         var visibleGrid: [[String]] = grid
         let (playerX, playerY) = playerPosition
-        for (x, row) in grid.enumerated() {
+        let cellAbove = (playerX-1,playerY)
+        let cellBelow = (playerX+1,playerY)
+        let cellLeft = (playerX,playerY-1)
+        let cellRight = (playerX,playerY+1)
+        for (x, row) in visibleGrid.enumerated() {
             for (y,_) in row.enumerated() {
-                // start placing objects
                 visibleGrid[x][y] = "⬛️"
-                if canPlayerMove(.up) && (x,y) == (playerX,playerY) {
-                    if visibleGrid[x-1][y] != "🆘" {
-                        visibleGrid[x-1][y] = "⬜️"
+                visibleGrid[0][0] = "🆘"
+                visibleGrid[playerX][playerY] = "🚶‍♂️"
+                if (x,y) == cellAbove || (x,y) == cellBelow || (x,y) == cellLeft || (x,y) == cellRight {
+                    if (x,y) == zombiesPositions[0] || (x,y) == zombiesPositions[1] {
+                        visibleGrid[x][y] = "🧟"
+                    } else {
+                    visibleGrid[x][y] = "⬜️"
                     }
-                    if (playerX-1,playerY) == zombiesPositions[0] || (playerX-1,playerY) == zombiesPositions[1] {
-                        visibleGrid[x-1][y] = "🧟"
-                    }
-                }
-                if canPlayerMove(.down) && (x,y) == (playerX,playerY) {
-                    visibleGrid[x+1][y] = "⬜️"
-                    if (playerX+1,playerY) == zombiesPositions[0] || (playerX+1,playerY) == zombiesPositions[1] {
-                        visibleGrid[x+1][y] = "🧟"
-                    }
-                }
-                if canPlayerMove(.left) && (x,y) == (playerX,playerY) {
-                    if visibleGrid[x][y-1] != "🆘" {
-                        visibleGrid[x][y-1] = "⬜️"
-                    }
-                    if (playerX,playerY-1) == zombiesPositions[0] || (playerX,playerY-1) == zombiesPositions[1] {
-                        visibleGrid[x][y-1] = "🧟"
-                    }
-                }
-                if canPlayerMove(.right) && (x,y) == (playerX,playerY) {
-                    visibleGrid[x][y+1] = "⬜️"
-                    if (playerX,playerY+1) == zombiesPositions[0] || (playerX,playerY+1) == zombiesPositions[1] {
-                        visibleGrid[x][y+1] = "🧟"
-                    }
-                }
-                if (x,y) == playerPosition {
-                    visibleGrid[x][y] = "🚶‍♂️"
-                }
-                if (x,y) == (0,0) {
-                    visibleGrid[x][y] = "🆘"
                 }
             }
         }
@@ -178,7 +156,10 @@ struct Game {
     var hasWon: Bool {
         // FIXME: player cannot win, why?
         // fix: only one is needed to win, hence, || instead of &&
-        return grid[0][1] == "🚶‍♂️" || grid[1][0] == "🚶‍♂️"
+        if grid[0][1] == "🚶‍♂️" || grid[1][0] == "🚶‍♂️" {
+            return true
+        }
+        return false
     }
     
     var hasLost: Bool {
@@ -198,5 +179,4 @@ struct Game {
         }
         return false
     }
-    
 }
