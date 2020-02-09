@@ -134,6 +134,7 @@ struct Game {
         for (x, row) in grid.enumerated() {
             for (y,_) in row.enumerated() {
                 // start placing objects
+                visibleGrid[x][y] = "⬛️"
                 if canPlayerMove(.up) && (x,y) == (playerX,playerY) {
                     if visibleGrid[x-1][y] != "🆘" {
                         visibleGrid[x-1][y] = "⬜️"
