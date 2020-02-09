@@ -76,7 +76,6 @@ class ViewController: UIViewController {
                 totalLosses += 1
             }
         }
-        
         if game.hasWon {
             displayFinalMessage(winning: true, hasRemainingLives: true)
             totalWins += 1
@@ -90,6 +89,12 @@ class ViewController: UIViewController {
         updateUI()
         hideFinalMessage()
         // TODO: update number of wins and losses in the UI
+        if game.hasWon {
+            totalWinsLabel.text = "W: \(totalWins)"
+        }
+        if game.hasLost {
+            totalLossesLabel.text = "L: \(totalLosses)"
+        }
     }
     
     func newRound() {
@@ -111,13 +116,28 @@ class ViewController: UIViewController {
         // update buttons
         // TODO: disable buttons that are not possible, e.g. down when there is no way to go down
         // can you find a way to gray out the disabled button as well?
+        
+        // trigger buttons availability
+        upButton.isEnabled = game.canPlayerMove(.up)
+        downButton.isEnabled = game.canPlayerMove(.down)
+        leftButton.isEnabled = game.canPlayerMove(.left)
+        rightButton.isEnabled = game.canPlayerMove(.right)
+        // check one by one. If disabled, turn alpha(opacity) down to half
+        let buttonsToGrayOut = [upButton,downButton,leftButton,rightButton]
+        for button in buttonsToGrayOut {
+            if button!.isEnabled {
+                button?.alpha = 1
+            } else {
+                button?.alpha = 0.5
+            }
+        }
     }
 
     func updateSquare(_ x: Int, _ y: Int, _ content: String) {
         // FIXME: this formula to translate (x, y) coordinates to tag id is buggy,
         // can you fix it? And what does that strange code with filter do?
         // Can you find it in the documentation? Or maybe you can guess what it does?
-        let coordinatesAsTag = x*5 + y
+        let coordinatesAsTag = 5*x + y
         let squareLabel = gridSquare.filter { $0.tag == coordinatesAsTag }.first
         squareLabel?.text = content
     }
