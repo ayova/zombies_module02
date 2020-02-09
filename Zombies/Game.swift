@@ -149,7 +149,6 @@ struct Game {
                 }
             }
         }
-        
         return visibleGrid
     }
     

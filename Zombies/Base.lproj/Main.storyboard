@@ -327,6 +327,9 @@
                             <constraint firstItem="Ddw-9o-97S" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="y24-Zq-dNO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="rrS-Vt-eGF" appends="YES" id="L60-GY-2AH"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="downButton" destination="luD-k4-kBY" id="mbS-df-OQa"/>
@@ -366,10 +369,10 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="Fov-SI-bjD">
+                <tapGestureRecognizer id="rrS-Vt-eGF">
                     <connections>
-                        <action selector="didTapOverlayView:" destination="BYZ-38-t0r" id="Bow-eI-Dpg"/>
-                        <outlet property="delegate" destination="8bC-Xf-vdC" id="wtb-bG-nMa"/>
+                        <action selector="didTapOverlayView:" destination="BYZ-38-t0r" id="40G-s8-see"/>
+                        <outlet property="delegate" destination="8bC-Xf-vdC" id="EJS-dg-Zr5"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
